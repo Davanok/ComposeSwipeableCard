@@ -1,4 +1,4 @@
-package com.example.dndinventory.ui.components
+package //TODO
 
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -24,9 +24,18 @@ import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
-import com.example.dndinventory.OnStateChange
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+fun <T> AnchoredDraggableState<T>.OnStateChange(onStateChange: (T) -> Unit) {
+    var previousValue by remember { mutableStateOf(currentValue) }
+    if (currentValue != previousValue) {
+        onStateChange(currentValue)
+        previousValue = currentValue
+    }
+}
 
 private enum class Anchors {
     START,
